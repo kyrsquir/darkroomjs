@@ -1,0 +1,29 @@
+$default-padding: 10px;
+
+.darkroom-container {
+  position: relative;
+}
+
+.darkroom-image-container {
+  top: 0;
+  left: 0;
+}
+
+.wrapper {
+  display: flex;
+  margin-top: 50px;
+}
+
+#content {
+  padding: $default-padding;
+}
+
+.exif {
+  .no-metadata {
+    padding-top: 2px;
+    padding-left: $default-padding + 2px;
+  }
+  td {
+    padding: 0 0 0 $default-padding;
+  }
+}

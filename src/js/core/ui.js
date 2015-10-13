@@ -4,7 +4,7 @@
 Darkroom.UI = {
   Toolbar: Toolbar,
   ButtonGroup: ButtonGroup,
-  Button: Button,
+  Button: Button
 };
 
 // Toolbar object.
@@ -51,7 +51,7 @@ ButtonGroup.prototype = {
 
     return button;
   }
-}
+};
 
 // Button object.
 function Button(element) {

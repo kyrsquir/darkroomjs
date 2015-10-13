@@ -1,14 +1,14 @@
 {
-  "name": "darkroom",
-  "description": "Extensible image editing tool via HTML canvas",
-  "version": "2.0.0",
+  "name": "Metadata Cropper",
+  "description": "Basic editor for multiple images with metadata",
+  "version": "0.0.1",
   "license": "MIT",
-  "homepage": "https://mattketmo.github.io/darkroomjs",
+  "homepage": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattketmo/darkroomjs.git"
+    "url": ""
   },
-  "author": "Matthieu Moquet <matthieu@moquet.net> (http://moquet.net/)",
+  "author": "Tim Meyerson <kyrsquir@gmail.com>",
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.9.0",

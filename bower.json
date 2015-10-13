@@ -1,18 +1,21 @@
 {
-  "name": "darkroom",
-  "description": "Extensible image editing tool via HTML canvas",
-  "version": "2.0.0",
-  "homepage": "http://mattketmo.github.io/darkroomjs/",
+  "name": "Metadata Cropper",
+  "description": "Basic editor for multiple images with metadata",
+  "version": "0.0.1",
+  "homepage": "",
   "authors": [
-    "Matthieu Moquet <matthieu@moquet.net>"
+    "Tim Meyerson <kyrsquir@gmail.com>"
   ],
   "license": "MIT",
   "dependencies": {
-    "fabric": "~1.4.*"
+    "blueimp-canvas-to-blob": "~2.2.0",
+    "blueimp-load-image": "~1.14.0",
+    "jquery": "~2.1.4",
+    "fabric.js": "fabric#1.5.0"
   },
   "main": [
-    "build/darkroom.css",
-    "build/darkroom.js"
+    "demo/build/metadata-cropper.css",
+    "demo/build/metadata-cropper.js"
   ],
   "moduleType": [
     "globals"
@@ -20,7 +23,8 @@
   "keywords": [
     "image",
     "canvas",
-    "crop"
+    "crop",
+    "metadata"
   ],
   "ignore": [
     "node_modules",

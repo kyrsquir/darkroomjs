@@ -60,9 +60,23 @@
 
                         // Post initialize script
                         initialize: function () {
-                            /*var cropPlugin = this.plugins['crop'];
-                             cropPlugin.selectZone(170, 25, 300, 300);
-                             cropPlugin.requireFocus();*/
+                            var $container = $(this.containerElement);
+                            $container.children('.darkroom-toolbar').hide();
+                            var buttonElement = document.createElement('button');
+                            buttonElement.type = 'button';
+                            buttonElement.className = 'darkroom-button darkroom-button-default';
+                            buttonElement.innerHTML = '<svg class="darkroom-icon"><use xlink:href="#edit" /></svg>';
+                            $container.append(buttonElement);
+                            //var that = this;
+                            $(buttonElement).click(function() {
+                                var $button = $(this);
+                                $button.siblings('.darkroom-toolbar').show();
+                                $button.hide();
+                                $button.closest('.wrapper').css('margin-top', '50px');
+                                /*var cropPlugin = that.plugins['crop'];
+                                 cropPlugin.selectZone(170, 25, 300, 300);
+                                 cropPlugin.requireFocus();*/
+                            });
                         }
                     });
                 };

@@ -44,7 +44,7 @@ gulp.task('build', ['clean'], function () {
 //
 gulp.task('watch', ['server'], function () {
     gulp.watch(srcDir + '/js/**/*.js', ['scripts']);
-    gulp.watch(srcDir + '/css/**/*.scss', ['styles']);
+    gulp.watch(srcDir + '/stylesheets/**/*.scss', ['styles']);
 });
 
 //
@@ -95,7 +95,7 @@ gulp.task('scripts', function () {
 // Stylesheet
 //
 gulp.task('styles', function () {
-    gulp.src(srcDir + '/css/metadata-cropper.scss')
+    gulp.src(srcDir + '/stylesheets/metadata-cropper.scss')
         .pipe(plumber())
         .pipe(isDebug ? sourcemaps.init() : gutil.noop())
         .pipe(sass({

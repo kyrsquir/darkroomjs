@@ -5,7 +5,11 @@
 
         defaults: {
             callback: function () {
-                this.darkroom.selfDestroy();
+                var $container = $(this.darkroom.containerElement);
+                $container.children('.darkroom-toolbar').hide();
+                $container.children('.darkroom-button').show();
+                $container.closest('.wrapper').css('margin-top', '');
+                //this.darkroom.selfDestroy();
             }
         },
 

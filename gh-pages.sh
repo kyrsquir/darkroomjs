@@ -10,7 +10,10 @@ gulp build --prod
 
 # Put build into demo folder
 rm demo/build
-cp -r build demo/build
+cp -r build demo/
+
+rm demo/vendor
+cp -r bower_components demo/vendor
 
 # Commit
 git add -f demo

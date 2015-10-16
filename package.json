@@ -3,10 +3,10 @@
   "description": "Basic editor for multiple images with metadata",
   "version": "0.0.1",
   "license": "MIT",
-  "homepage": "",
+  "homepage": "http://kyrsquir.github.io/metadata-cropper/",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "http://kyrsquir.github.io/metadata-cropper/"
   },
   "author": "Tim Meyerson <kyrsquir@gmail.com>",
   "dependencies": {},

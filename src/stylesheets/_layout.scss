@@ -1,36 +1,57 @@
 $default-padding: 10px;
 $background: gainsboro;
-$metadata-width: 23%;
+$metadata-width: 15%;
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #f2f2f4;
+  color: #555;
+  margin: 0;
+}
+
+h1 {
+  font-size: 52px;
+  margin: 0;
+  padding: 0;
+  font-weight: 100;
+  color: #eee;
+  text-align: center;
+}
 
 div {
   display: inline;
 }
 
-.darkroom-container {
-  position: relative;
-  > .darkroom-button {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-}
-
-.darkroom-image-container {
-  top: 0;
-  left: 0;
-}
-
-.wrapper {
-  margin-top: 5px;
-}
-
 #left {
   width: 100% - $metadata-width;
   display: block;
-}
-
-#images {
-  padding: $default-padding;
+  #dropzone {
+    display: block;
+    padding: $default-padding;
+    box-sizing: border-box;
+    background-color: #222;
+    &.hover {
+      background-color: $background;
+    }
+  }
+  #images {
+    padding: $default-padding;
+    .wrapper {
+      margin-top: 5px;
+      .darkroom-container {
+        position: relative;
+        > .darkroom-button {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+        .darkroom-image-container {
+          top: 0;
+          left: 0;
+        }
+      }
+    }
+  }
 }
 
 #metadata {
@@ -42,28 +63,28 @@ div {
   right: 0;
   display: flex;
   align-items: center;
+  font-size: small;
+  word-break: break-all;
+  .exif {
+    .no-metadata {
+      padding-top: 2px;
+      padding-left: $default-padding + 2px;
+    }
+    td {
+      padding: 0 0 0 $default-padding;
+    }
+  }
 }
 
-.exif {
-  //display: none;
-  .no-metadata {
-    padding-top: 2px;
-    padding-left: $default-padding + 2px;
-  }
-  td {
-    padding: 0 0 0 $default-padding;
-  }
-}
+/*#header {
+  background-color: #222;
+  padding: $default-padding;
+  min-width: 700px;
+  position: relative;
+  display: none;
+}*/
 
-#dropzone {
-  display: block;
-  height: 120px;
-  padding: 30px;
-  box-sizing: border-box;
-  h1 {
-    color: #111111;
-  }
-  &.hover {
-    background-color: $background;
-  }
-}
+/*input[type=file] {
+  margin-left: $default-padding;
+  margin-top: $default-padding;
+}*/

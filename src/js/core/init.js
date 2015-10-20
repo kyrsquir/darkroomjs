@@ -1,25 +1,25 @@
 (function () {
     'use strict';
-    var $holder = $('#dropzone'),
+    var $dropzone = $('#dropzone'),
         $images = $('#images'),
         $metadata = $('#metadata'),
-        imageWidth = screen.width * 0.77 * 0.30,
+        imageWidth = screen.width * 0.85 * 0.30,
         imageHeight = 500;
-    $holder.on({
+    $dropzone.on({
         dragover: function (event) {
             event.preventDefault();
             event.stopPropagation();
-            $holder.addClass('hover');
+            $dropzone.addClass('hover');
         },
         dragleave: function (event) {
             event.preventDefault();
             event.stopPropagation();
-            $holder.removeClass('hover');
+            $dropzone.removeClass('hover');
         },
         drop: function (event) {
             event.preventDefault();
             event.stopPropagation();
-            $holder.removeClass('hover');
+            $dropzone.removeClass('hover');
             $images.empty();
             $metadata.empty();
             var x = 0,
@@ -34,7 +34,7 @@
                 $images.append('<div class="wrapper" x="' + x + '" y="' + y + '" id="' + index + '">\
                                      <div id="image-container-' + index + '">\
                                      </div>\
-                                 </div>');
+                                </div>');
                 $metadata.append('<div id="exif-' + index + '" style="display: none;" class="exif">\
                                       <table></table>\
                                   </div>');
@@ -101,7 +101,7 @@
                                     $button.siblings('.darkroom-toolbar').show();
                                     $button.hide();
                                     $wrapper.css('margin-top', '50px').draggable('disable');
-                                    $('#exif-' + id).show();
+                                    $('#exif-' + id).show().siblings().hide();
                                 });
                             }
                         });

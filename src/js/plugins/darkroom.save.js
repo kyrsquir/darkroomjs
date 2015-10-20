@@ -5,10 +5,13 @@
 
         defaults: {
             callback: function () {
-                var $container = $(this.darkroom.containerElement);
+                var $container = $(this.darkroom.containerElement),
+                    $wrapper = $container.closest('.wrapper'),
+                    id = $wrapper.attr('id');
                 $container.children('.darkroom-toolbar').hide();
                 $container.children('.darkroom-button').show();
-                $container.closest('.wrapper').css('margin-top', '');
+                $wrapper.css('margin-top', '').draggable('enable');
+                $('#exif-' + id).hide();
                 //this.darkroom.selfDestroy();
             }
         },

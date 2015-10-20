@@ -1,90 +1,127 @@
 (function () {
     'use strict';
-    $('#file-input').after('<div id="content"></div>').on('change', function (event) {
-        var $content = $('#content');
-        $content.empty();
-        Array.prototype.forEach.call(event.target.files, (function (file, index) {
-            $content.append('<div class="wrapper">\
-                                 <div id="image-container-' + index + '"></div>\
-                                 <div id="exif-' + index + '" class="exif">\
-                                     <table></table>\
-                                 </div>\
-                             </div>');
-            $('#image-container-' + index).data('fileName', file.name);
-            loadImage.parseMetaData(file, function (data) {
-                var $exif = $('#exif-' + index);
-                $exif.data('header', data.imageHead);
-                if (data.exif) {
-                    var tags = data.exif.getAll(),
-                        table = $exif.find('table'),
-                        row = $('<tr></tr>'),
-                        cell = $('<td></td>'),
-                        prop;
-                    for (prop in tags) {
-                        if (tags.hasOwnProperty(prop)) {
-                            table.append(
-                                row.clone()
-                                    .append(cell.clone().text(prop))
-                                    .append(cell.clone().text(tags[prop]))
-                            );
-                        }
-                    }
+    var $holder = $('#dropzone'),
+        $images = $('#images'),
+        $metadata = $('#metadata'),
+        imageWidth = screen.width * 0.77 * 0.30,
+        imageHeight = 500;
+    $holder.on({
+        dragover: function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            $holder.addClass('hover');
+        },
+        dragleave: function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            $holder.removeClass('hover');
+        },
+        drop: function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            $holder.removeClass('hover');
+            $images.empty();
+            $metadata.empty();
+            var x = 0,
+                y = -1;
+            Array.prototype.forEach.call(event.originalEvent.dataTransfer.files, (function (file, index) {
+                if (index % 3 === 0) {
+                    x = 0;
+                    y++;
                 } else {
-                    $exif.html('<div class="no-metadata">No available metadata</div>');
+                    x++;
                 }
-
-                var img = document.createElement('img');
-                img.onload = function () {
-                    img.id = 'target-' + index;
-                    $('#image-container-' + index).append(img);
-                    window.dkrm = new Darkroom('#' + img.id, {
-                        // Size options
-                        minWidth: 100,
-                        minHeight: 100,
-                        maxWidth: 600,
-                        maxHeight: 500,
-                        ratio: 4 / 3,
-                        backgroundColor: '#000',
-
-                        // Plugins options
-                        plugins: {
-                            //save: false,
-                            crop: {
-                                quickCropKey: 67//, key "c"
-                                //minHeight: 50,
-                                //minWidth: 50,
-                                //ratio: 4/3
-
+                $images.append('<div class="wrapper" x="' + x + '" y="' + y + '" id="' + index + '">\
+                                     <div id="image-container-' + index + '">\
+                                     </div>\
+                                 </div>');
+                $metadata.append('<div id="exif-' + index + '" style="display: none;" class="exif">\
+                                      <table></table>\
+                                  </div>');
+                $('#image-container-' + index).data('fileName', file.name);
+                loadImage.parseMetaData(file, function (data) {
+                    var $exif = $('#exif-' + index);
+                    if (data.exif) {
+                        var tags = data.exif.getAll(),
+                            table = $exif.find('table'),
+                            row = $('<tr></tr>'),
+                            cell = $('<td></td>'),
+                            prop;
+                        for (prop in tags) {
+                            if (tags.hasOwnProperty(prop)) {
+                                table.append(
+                                    row.clone()
+                                        .append(cell.clone().text(prop))
+                                        .append(cell.clone().text(tags[prop]))
+                                );
                             }
-                        },
-
-                        // Post initialize script
-                        initialize: function () {
-                            var $container = $(this.containerElement);
-                            $container.children('.darkroom-toolbar').hide();
-                            var buttonElement = document.createElement('button');
-                            buttonElement.type = 'button';
-                            buttonElement.className = 'darkroom-button darkroom-button-default';
-                            buttonElement.innerHTML = '<svg class="darkroom-icon"><use xlink:href="#edit" /></svg>';
-                            $container.append(buttonElement);
-                            //var that = this;
-                            $(buttonElement).click(function() {
-                                var $button = $(this);
-                                $button.siblings('.darkroom-toolbar').show();
-                                $button.hide();
-                                $button.closest('.wrapper').css('margin-top', '50px');
-                                /*var cropPlugin = that.plugins['crop'];
-                                 cropPlugin.selectZone(170, 25, 300, 300);
-                                 cropPlugin.requireFocus();*/
-                            });
                         }
-                    });
-                };
-                loadImage.readFile(file, function (e) {
-                    img.src = e.target.result;
-                });
+                    } else {
+                        $exif.html('<div class="no-metadata">No available metadata</div>');
+                    }
 
+                    var img = document.createElement('img');
+                    img.onload = function () {
+                        img.id = 'target-' + index;
+                        $('#image-container-' + index).append(img);
+                        window.dkrm = new Darkroom('#' + img.id, {
+                            // Size options
+                            minWidth: 100,
+                            minHeight: 100,
+                            maxWidth: imageWidth,
+                            maxHeight: imageHeight,
+                            /*ratio: 4 / 3,
+                             backgroundColor: '#000',*/
+
+                            // Plugins options
+                            plugins: {
+                                //save: false,
+                                crop: {
+                                    //quickCropKey: 67//, key "c"
+                                    //minHeight: 50,
+                                    //minWidth: 50,
+                                    //ratio: 4/3
+
+                                }
+                            },
+
+                            // Post initialize script
+                            initialize: function () {
+                                var $container = $(this.containerElement),
+                                    buttonElement = document.createElement('button');
+                                $container.children('.darkroom-toolbar').hide();
+                                buttonElement.type = 'button';
+                                buttonElement.className = 'darkroom-button darkroom-button-default';
+                                buttonElement.innerHTML = '<svg class="darkroom-icon"><use xlink:href="#edit" /></svg>';
+                                $container.append(buttonElement);
+                                $(buttonElement).click(function () {
+                                    var $button = $(this),
+                                        $wrapper = $button.closest('.wrapper'),
+                                        id = $wrapper.attr('id');
+                                    $button.siblings('.darkroom-toolbar').show();
+                                    $button.hide();
+                                    $wrapper.css('margin-top', '50px').draggable('disable');
+                                    $('#exif-' + id).show();
+                                });
+                            }
+                        });
+                    };
+                    loadImage.readFile(file, function (e) {
+                        img.src = e.target.result;
+                    });
+
+                });
+            }));
+            $('.wrapper').draggable({}).each(function () {
+                var $this = $(this),
+                    x = $this.attr('x'),
+                    y = $this.attr('y');
+                $this.css({
+                    left: x * imageWidth * 1.1,
+                    top: y * imageHeight * 1.1
+                });
             });
-        }));
+            $('#left').css('height', (y + 1) * imageHeight * 1.1);
+        }
     });
 })();

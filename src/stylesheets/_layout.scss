@@ -1,10 +1,17 @@
 $default-padding: 10px;
+$background: gainsboro;
+$metadata-width: 23%;
+
+div {
+  display: inline;
+}
 
 .darkroom-container {
   position: relative;
   > .darkroom-button {
     position: absolute;
     top: 0;
+    left: 0;
   }
 }
 
@@ -14,20 +21,49 @@ $default-padding: 10px;
 }
 
 .wrapper {
-  display: flex;
   margin-top: 5px;
 }
 
-#content {
+#left {
+  width: 100% - $metadata-width;
+  display: block;
+}
+
+#images {
   padding: $default-padding;
 }
 
+#metadata {
+  width: $metadata-width;
+  position: fixed;
+  background-color: $background;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+}
+
 .exif {
+  //display: none;
   .no-metadata {
     padding-top: 2px;
     padding-left: $default-padding + 2px;
   }
   td {
     padding: 0 0 0 $default-padding;
+  }
+}
+
+#dropzone {
+  display: block;
+  height: 120px;
+  padding: 30px;
+  box-sizing: border-box;
+  h1 {
+    color: #111111;
+  }
+  &.hover {
+    background-color: $background;
   }
 }

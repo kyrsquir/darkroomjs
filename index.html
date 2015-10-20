@@ -7,21 +7,25 @@
     <link rel="stylesheet" href="stylesheets/page.css">
 </head>
 <body>
-<header id="header">
-    <div class="container">
+<div id="left">
+    <header id="header">
         <h1><strong>Metadata cropper</strong></h1>
-        <!--<p class="hero">
-          Extensible image editing tool powered by HTML5 canvas.
-        </p>-->
-    </div>
-</header>
-
-<input type="file" id="file-input" multiple>
+    </header>
+    <div id="dropzone"><h1><strong>Drop files here</strong></h1></div>
+    <div id="images"></div>
+</div>
+<div id="metadata"></div>
+<!--<input type="file" id="file-input" multiple>-->
 
 <script src="./vendor/blueimp-canvas-to-blob/js/canvas-to-blob.min.js"></script>
 <script src="./vendor/blueimp-load-image/js/load-image.all.min.js"></script>
 <script src="./vendor/fabric.js/dist/fabric.min.js"></script>
 <script src="./vendor/jquery/dist/jquery.min.js"></script>
+<script src="./vendor/jquery-ui/ui/core.js"></script>
+<script src="./vendor/jquery-ui/ui/widget.js"></script>
+<script src="./vendor/jquery-ui/ui/mouse.js"></script>
+<script src="./vendor/jquery-ui/ui/draggable.js"></script>
+<script src="./vendor/dropzone/dist/min/dropzone.min.js"></script>
 <script src="./build/metadata-cropper.js"></script>
 
 </body>

@@ -49,6 +49,9 @@ div {
           top: 0;
           left: 0;
         }
+        .darkroom-toolbar.active+.darkroom-image-container .canvas-container {
+          z-index: 9999;
+        }
       }
     }
   }

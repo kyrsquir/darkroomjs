@@ -32,8 +32,7 @@
                     x++;
                 }
                 $images.append('<div class="wrapper" x="' + x + '" y="' + y + '" id="' + index + '">\
-                                     <div id="image-container-' + index + '">\
-                                     </div>\
+                                     <div id="image-container-' + index + '"></div>\
                                 </div>');
                 $metadata.append('<div id="exif-' + index + '" style="display: none;" class="exif">\
                                       <table></table>\
@@ -89,7 +88,7 @@
                             initialize: function () {
                                 var $container = $(this.containerElement),
                                     buttonElement = document.createElement('button');
-                                $container.children('.darkroom-toolbar').hide();
+                                $container.children('.darkroom-toolbar')
                                 buttonElement.type = 'button';
                                 buttonElement.className = 'darkroom-button darkroom-button-default';
                                 buttonElement.innerHTML = '<svg class="darkroom-icon"><use xlink:href="#edit" /></svg>';
@@ -98,7 +97,7 @@
                                     var $button = $(this),
                                         $wrapper = $button.closest('.wrapper'),
                                         id = $wrapper.attr('id');
-                                    $button.siblings('.darkroom-toolbar').show();
+                                    $button.siblings('.darkroom-toolbar').addClass('active');
                                     $button.hide();
                                     $wrapper.css('margin-top', '50px').draggable('disable');
                                     $('#exif-' + id).show().siblings().hide();

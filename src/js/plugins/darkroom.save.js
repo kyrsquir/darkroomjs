@@ -8,7 +8,7 @@
                 var $container = $(this.darkroom.containerElement),
                     $wrapper = $container.closest('.wrapper'),
                     id = $wrapper.attr('id');
-                $container.children('.darkroom-toolbar').hide();
+                $container.children('.darkroom-toolbar').removeClass('active');
                 $container.children('.darkroom-button').show();
                 $wrapper.css('margin-top', '').draggable('enable');
                 $('#exif-' + id).hide();

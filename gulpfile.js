@@ -74,11 +74,12 @@ gulp.task('scripts', function () {
     var files = [
         srcDir + '/js/core/*.js',
         //plugin order equals button order
-        srcDir + '/js/plugins/darkroom.history.js',
-        srcDir + '/js/plugins/darkroom.rotate.js',
-        srcDir + '/js/plugins/darkroom.crop.js',
-        srcDir + '/js/plugins/darkroom.save.js',
-        srcDir + '/js/plugins/darkroom.download.js'
+        //srcDir + '/js/plugins/darkroom.history.js',
+        //srcDir + '/js/plugins/darkroom.rotate.js',
+        //srcDir + '/js/plugins/darkroom.crop.js',
+        srcDir + '/js/plugins/darkroom.edit.js',
+        srcDir + '/js/plugins/darkroom.download.js',
+        srcDir + '/js/plugins/darkroom.zoom.js'
     ];
 
     gulp.src(files)

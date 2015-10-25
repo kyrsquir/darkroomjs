@@ -6,7 +6,7 @@
                 this.darkroom.download();
             }
         },
-        initialize: function InitializeDarkroomDownloadPlugin() {
+        initialize: function() {
             var buttonGroup = this.darkroom.toolbar.createButtonGroup();
 
             this.downloadButton = buttonGroup.createButton({

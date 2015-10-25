@@ -91,34 +91,67 @@
             image.src = element.src;
         },
 
-        selfDestroy: function () {
-            var container = this.containerElement;
-            var image = new Image();
-            image.onload = function () {
-                container.parentNode.replaceChild(image, container);
-            };
-            image.src = this.sourceImage.toDataURL();
-        },
+        /*selfDestroy: function () {
+         var container = this.containerElement;
+         var image = new Image();
+         image.onload = function () {
+         container.parentNode.replaceChild(image, container);
+         };
+         image.src = this.sourceImage.toDataURL();
+         },*/
 
         download: function () {
             var $container = $(this.containerElement),
-                header = $container.parent().next().data('header'),
+                header = $container.parent().data('header'),
                 fileName = $container.parent().data('fileName');
-            $container.find('.darkroom-image-container .lower-canvas').get(0).toBlob(function (resizedImage) {
+            this.canvas.lowerCanvasEl.toBlob(function (modifiedImage) {
                 var blob = new Blob([
-                    header,
-                    // Resized images always have a head size of 20 bytes,
-                    // including the JPEG marker and a minimal JFIF header:
-                    loadImage.blobSlice.call(resizedImage, 20)
-                ], {type: resizedImage.type});
-                var a = document.createElement('a');
+                        header,
+                        // Resized images always have a head size of 20 bytes,
+                        // including the JPEG marker and a minimal JFIF header:
+                        loadImage.blobSlice.call(modifiedImage, 20)
+                    ], {type: modifiedImage.type}),
+                    a = document.createElement('a'),
+                    url = window.URL.createObjectURL(blob);
                 document.body.appendChild(a);
-                var url = window.URL.createObjectURL(blob);
                 a.href = url;
-                a.download = fileName.substring(0, fileName.indexOf('.')) + '.jpg';
+                a.download = 'modified-' + fileName.substring(0, fileName.indexOf('.')) + '.jpg';
                 a.click();
                 window.URL.revokeObjectURL(url);
             }, 'image/jpeg');
+        },
+
+        crop: function (options) {
+            var cropped = new Image(),
+                canvas = this.canvas,
+                canvasWidth = canvas.getWidth(),
+                canvasHeight = canvas.getHeight(),
+                canvasEl = canvas.lowerCanvasEl,
+                ctx = canvasEl.getContext('2d'),
+                zoom = canvas.viewport.zoom,
+                left = options.left + (canvasWidth / zoom / 2),
+                top = options.top + (canvasHeight / zoom),
+                width = options.width * zoom,
+                height = options.height * zoom;
+            //canvas.setZoom(1);
+            /*$(canvas.upperCanvasEl).remove();
+            cropped.onload = function () {
+                //ctx.clearRect(0, 0, width, height);
+                canvasEl.width = width;
+                canvasEl.height = height;
+                $(canvasEl).css({
+                    width: width,
+                    height: height
+                });
+                ctx.drawImage(cropped, 0, 0);
+            };*/
+            cropped.src = this.canvas.toDataURL({
+                left: left,
+                top: top,
+                width: width,
+                height: height
+            });
+            console.log(cropped.src, left, top, width, height, zoom);
         },
 
         // Add ability to attach event listener on the core object.
@@ -305,12 +338,12 @@
 
             this.toolbar = new Darkroom.UI.Toolbar(toolbarElement);
 
-            this.canvas = new fabric.Canvas(canvasElement, {
+            this.canvas = new fabric.CanvasWithViewport(canvasElement, {
                 selection: false,
                 backgroundColor: this.options.backgroundColor
             });
 
-            this.sourceCanvas = new fabric.Canvas(sourceCanvasElement, {
+            this.sourceCanvas = new fabric.CanvasWithViewport(sourceCanvasElement, {
                 selection: false,
                 backgroundColor: this.options.backgroundColor
             });

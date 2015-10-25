@@ -19,7 +19,7 @@ h1 {
 }
 
 div {
-  display: inline;
+  display: inline-block;
 }
 
 #left {
@@ -37,13 +37,22 @@ div {
   #images {
     padding: $default-padding;
     .wrapper {
+      cursor: move;
+      &.ui-draggable-disabled {
+        cursor: grab;
+        cursor: -moz-grab;
+        cursor: -webkit-grab;
+        &:active {
+          cursor: grabbing;
+          cursor: -moz-grabbing;
+          cursor: -webkit-grabbing;
+        }
+      }
       margin-top: 5px;
       .darkroom-container {
         position: relative;
-        > .darkroom-button {
+        .canvas-container > .darkroom-button {
           position: absolute;
-          top: 0;
-          left: 0;
         }
         .darkroom-image-container {
           top: 0;
@@ -81,16 +90,3 @@ div {
     }
   }
 }
-
-/*#header {
-  background-color: #222;
-  padding: $default-padding;
-  min-width: 700px;
-  position: relative;
-  display: none;
-}*/
-
-/*input[type=file] {
-  margin-left: $default-padding;
-  margin-top: $default-padding;
-}*/
